@@ -13,13 +13,19 @@ correctly. The final API code should be packaged in a Docker container.
 
 API Endpoints
 -------------
+.. list-table::
+  :header-rows: 1
+  :widths: 12 30 88
 
-====== ================ =================================================================
-Method Endpoint         Description
-====== ================ =================================================================
-GET    /api/v1/datetime returns the current time and date (UTC or local)
-GET    /api/v1/weather  returns the current weather for a given zip code (details below)
-====== ================ =================================================================
+  * - Method
+    - Endpoint
+    - Description
+  * - GET
+    - /api/v1/datetime
+    - returns the current time and date (UTC or local)
+  * - GET
+    - /api/v1/weather
+    - returns the current weather for a given zip code (details below)
 
 Submitting Your Results
 -----------------------
@@ -35,15 +41,19 @@ Expectations and Evaluation Criteria
 Your project will be evaluated on the following criteria:
 
 * Correctness: Measures if the assignment produces the correct output
-* Testing: Evaluates how thoroughly the candidate tested their submission. An ideal submission will have a thorough unit test suite and include/document tests done with larger corpus files 
-* Readability: Using meaningful variable names, easy to follow logic and control flow, adequate commenting, and amount of code reuse
+* Testing: Evaluates how thoroughly the candidate tested their submission. An
+  ideal submission will have a thorough unit test suite and include/document
+  tests done with larger corpus files
+* Readability: Using meaningful variable names, easy to follow logic and
+  control flow, adequate commenting, and amount of code reuse
 
-Requirements for correctness
----------------------------
+Requirements for Correctness
+----------------------------
 Ensure your assignment meets the following requirements:
 
 * Add basic authentication to your API (you may hard-code credentials)
-* The weather check should accept a minimal request with the following query arguments: :code:`GET /api/v1/weather?zip={zipcode,countrycode}&units={units}`
+* The weather check should accept a minimal request with the following query
+  arguments: :code:`GET /api/v1/weather?zip={zipcode,countrycode}&units={units}`
 
   .. list-table::
     :header-rows: 1
@@ -52,10 +62,10 @@ Ensure your assignment meets the following requirements:
     * - Argument
       - Description
     * - zip
-      - US Zip code or ISO 3166-1 Alpha-2 formatted country code.
+      - US Zip code with or without ISO 3166-1 Alpha-2 formatted country code.
     * - units
-      - Unit of measure for temperature. Will be one of :code:`celsius`, :code:`farenheit`, or :code:`kelvin`.  OR, you
-        may abbreviate units as :code:`C`, :code:`F`, or :code:`K`.
+      - Unit of measure for temperature. Will be one of :code:`celsius`, :code:`farenheit`, or :code:`kelvin`. OR, you
+        may abbreviate units as :code:`c`, :code:`f`, or :code:`k` (upper or lower should be able to be submitted).
 
   The returned JSON blob must include the following fields, though additional fields may be returned:
 
@@ -72,13 +82,19 @@ Ensure your assignment meets the following requirements:
     * - description
       - String
       - A human-readable summary of the current weather such as :code:`sunny`, :code:`cloudy`, or :code:`rainy`.
+
 * Write your code in Python 3 and document it well
-* Containerize your code with Docker -- we should be able to clone your repo and
-  run 'docker-compose up' to bring the API up to test it
+* Containerize your code with Docker -- we should be able to clone your repo
+  and run 'docker-compose up' to bring the API up to test it
 * Make the API  handle errors gracefully and return error codes and messages
   that are easy to interpret
-* Create a good set of tests with a testing framework that checks API endpoints for
-  expected results in normal and error conditions.
+* Create a good set of tests with a testing framework that checks API endpoints
+  for expected results in normal and error conditions.
+* Your API for weather should call an upstream API provider to return the
+  current weather info for the location requested (your choice of upstream API)
+* The API key for the upstream API for weather should be provided to the API
+  server you write in a configuration file that is copied into the container
 * Return all data as JSON
 * Add API documentation in OpenAPI / Swagger / ReDoc spec.
-* Add a reverse web proxy on the front end (in another container)
+* Add a reverse web proxy on the front end (in another container). All API
+  calls should transit this proxy, not hit the API container itself.
