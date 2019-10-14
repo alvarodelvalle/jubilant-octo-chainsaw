@@ -7,8 +7,6 @@ from darksky.types import languages, units, weather
 
 
 class Weather(object):
-    def __init__(self):
-        self.name='weather'
 
     def get_forecast(self, zipcode, units):
         api_key = os.getenv('SKIES_API_KEY')
@@ -18,9 +16,22 @@ class Weather(object):
         
         darksky = DarkSky(api_key)
         
-        response = darksky.get_forecast(
+        dark_forecast = darksky.get_forecast(
         latitude, longitude, 
         exclude=[weather.MINUTELY, weather.ALERTS]
         )
-        # TODO: update response with correct temperature given the units requested
-        return response
+        converted_temp = self.temp_convert(dark_forecast.currently.temperature, units)
+        forecast = {'temperature': converted_temp, 'description': dark_forecast.currently.summary}
+        return forecast
+
+    def temp_convert(self, current_temp, units):
+        switcher = {
+            'k': ((current_temp - 32) * 5.0/9.0) + 273.15,
+            'c': (current_temp - 32) * 5.0/9.0,
+            'f': current_temp
+        }
+        temperature = switcher.get(units.lower())
+        return temperature
+
+    def __init__(self):
+        self.name='weather'

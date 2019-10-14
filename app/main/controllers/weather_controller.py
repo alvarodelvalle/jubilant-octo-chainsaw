@@ -18,9 +18,5 @@ class WeatherController(Resource):
 
         weather = Weather()
         forecast = weather.get_forecast(rzip, runits)
-        current_forecast = json.dumps({
-            'temperature':forecast.currently.temperature,
-            'description':forecast.currently.summary
-            })
-        return current_forecast
+        return forecast
 
