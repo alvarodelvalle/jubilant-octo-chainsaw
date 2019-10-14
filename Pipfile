@@ -17,6 +17,7 @@ flask-script = "*"
 flask-migrate = "*"
 manage = "*"
 flask-restplus = "*"
+zipcodes = "*"
 
 [requires]
 python_version = "3.7"

@@ -11,8 +11,13 @@ api = Namespace('weather', description='v1 api calls')
 class WeatherController(Resource):
     @api.doc('Get forecast')
     def get(self):
+        # check for args in request.args, if `zip` or `units` are missing, return a 400
+        rzip = request.args['zip'] 
+        runits = request.args['units'] 
+        print("Zip: {a:s}; Units: {b:s}".format(a=rzip, b=runits))
+
         weather = Weather()
-        forecast = weather.get_forecast()
+        forecast = weather.get_forecast(rzip, runits)
         current_forecast = json.dumps({
             'temperature':forecast.currently.temperature,
             'description':forecast.currently.summary

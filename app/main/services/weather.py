@@ -1,5 +1,7 @@
 import os
 import json
+
+import zipcodes
 from darksky.api import DarkSky, DarkSkyAsync
 from darksky.types import languages, units, weather
 
@@ -8,21 +10,17 @@ class Weather(object):
     def __init__(self):
         self.name='weather'
 
-    def get_forecast(self):
+    def get_forecast(self, zipcode, units):
         api_key = os.getenv('SKIES_API_KEY')
-        latitude = 43.073051
-        longitude = -89.401230
+        lat_long = zipcodes.matching(zipcode)
+        latitude = lat_long[0].get('lat')
+        longitude = lat_long[0].get('long')
+        
         darksky = DarkSky(api_key)
+        
         response = darksky.get_forecast(
-        latitude, longitude, extend=False, # default `False`
-        lang=languages.ENGLISH, # default `ENGLISH`
-        units=units.AUTO, # default `auto`
-        exclude=[weather.MINUTELY, weather.ALERTS] # default `[]`
+        latitude, longitude, 
+        exclude=[weather.MINUTELY, weather.ALERTS]
         )
+        # TODO: update response with correct temperature given the units requested
         return response
-
-    # def get_lat_long():
-    # # use query params from api request to figure out lat and long; return dictionary
-    # # TODO - take zip code from api request and use a library to get the lat+long - AD 2019-10-12
-    # lat_long = {'latitude':'42.3601', 'longitude':'-71.0589'}
-    # return lat_long
