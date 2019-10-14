@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 pylint = "*"
+flask-testing = "*"
+darksky-weather = "*"
 
 [packages]
 flask = "*"
@@ -13,6 +15,8 @@ requests = "*"
 flask-restful = "*"
 flask-script = "*"
 flask-migrate = "*"
+manage = "*"
+flask-restplus = "*"
 
 [requires]
 python_version = "3.7"
