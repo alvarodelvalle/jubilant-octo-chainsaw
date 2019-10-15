@@ -2,6 +2,8 @@ import os
 import json
 
 import zipcodes
+
+from werkzeug.exceptions import BadRequest, NotFound, InternalServerError
 from darksky.api import DarkSky, DarkSkyAsync
 from darksky.types import languages, units, weather
 
@@ -10,9 +12,18 @@ class Weather(object):
 
     def get_forecast(self, zipcode, units):
         api_key = os.getenv('SKIES_API_KEY')
-        lat_long = zipcodes.matching(zipcode)
-        latitude = lat_long[0].get('lat')
-        longitude = lat_long[0].get('long')
+        # zipcode param may be passed as an invalid format
+        try:
+            lat_long = zipcodes.matching(zipcode)
+        except ValueError as err:
+            raise BadRequest(err)
+
+        # zipcode can be passed as 00000 or 00000-0000
+        try:
+            latitude = lat_long[0].get('lat')
+            longitude = lat_long[0].get('long')
+        except IndexError as e:
+            raise BadRequest(e)
         
         darksky = DarkSky(api_key)
         
