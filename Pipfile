@@ -18,6 +18,7 @@ flask-migrate = "*"
 manage = "*"
 flask-restplus = "*"
 zipcodes = "*"
+flask-httpauth = "*"
 
 [requires]
 python_version = "3.7"

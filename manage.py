@@ -7,13 +7,12 @@ from flask_script import Manager
 from app.main import create_app
 from app import blueprint
 
-app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
+app = create_app(os.getenv('FLASK_ENV') or 'dev')
 app.register_blueprint(blueprint)
 
 app.app_context().push()
 
 manager = Manager(app)
-# migrate = Migrate(app)
 
 @manager.command
 def run():

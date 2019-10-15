@@ -12,10 +12,13 @@ class DevConfig(Configuration):
 class TestingConfig(Configuration):
     DEBUG = True
     TESTING = True
+class ProductionConfig(Configuration):
+    DEBUG = False
 
 configurations = dict(
     dev=DevConfig,
-    test=TestingConfig
+    test=TestingConfig,
+    prod=ProductionConfig
 )
 
 SKIES_API_KEY = Configuration.SKIES_API_KEY

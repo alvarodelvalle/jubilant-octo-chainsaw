@@ -9,8 +9,9 @@ from darksky.types import languages, units, weather
 
 
 class Weather(object):
-
+    """Class that gets the weather forecast"""
     def get_forecast(self, zipcode, units):
+        u"""Get the current temperature in specified units and description(eg:'clear')"""
         api_key = os.getenv('SKIES_API_KEY')
         # zipcode param may be passed as an invalid format
         try:
@@ -36,6 +37,7 @@ class Weather(object):
         return forecast
 
     def temp_convert(self, current_temp, units):
+        """Convert the temperature from F to K or C"""
         switcher = {
             'k': ((current_temp - 32) * 5.0/9.0) + 273.15,
             'c': (current_temp - 32) * 5.0/9.0,
