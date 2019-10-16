@@ -1,7 +1,6 @@
 import os
 import unittest
 
-from flask_migrate import Migrate
 from flask_script import Manager
 
 from app.main import create_app
@@ -15,8 +14,8 @@ app.app_context().push()
 manager = Manager(app)
 
 @manager.command
-def run():
-    app.run
+def runserver():
+    app.run(host='0.0.0.0')
 
 @manager.command
 def test():

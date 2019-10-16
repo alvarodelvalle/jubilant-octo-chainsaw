@@ -7,7 +7,6 @@ verify_ssl = true
 pytest = "*"
 pylint = "*"
 flask-testing = "*"
-darksky-weather = "*"
 
 [packages]
 flask = "*"
@@ -19,6 +18,7 @@ manage = "*"
 flask-restplus = "*"
 zipcodes = "*"
 flask-httpauth = "*"
+darksky-weather = "*"
 
 [requires]
 python_version = "3.7"
