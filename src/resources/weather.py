@@ -1,15 +1,15 @@
-from flask import Flask, request
-from flask_restplus import Api, Resource, fields, Namespace, marshal
-from werkzeug.exceptions import BadRequest, HTTPException, NotFound
-from darksky.api import DarkSky, DarkSkyAsync
-from darksky.types import languages, units, weather
-
-from server.instance import server
-from models.weather import weather_model
-from resources.authorization_helper import auth
+import os
 
 import zipcodes
-import os
+from darksky.api import DarkSky
+from darksky.types import weather
+from flask import request
+from flask_restplus import Resource, marshal
+from werkzeug.exceptions import BadRequest, HTTPException, NotFound
+
+from models.weather import weather_model
+from resources.authorization_helper import auth
+from server.instance import server
 
 app, api = server.app, server.api
 
@@ -28,10 +28,10 @@ def temp_convert(current_temp, units):
 
 
 @api.route('/api/v1/weather')
+@api.doc(params={'zip': 'format: xxxxx,us', 'units': 'one of the following: (F)arenheit (C)elcius (K)elvin'})
 class Weather(Resource):
     """Get the weather in given units for the provided zip code"""
 
-    @api.doc('Get current temp in F, C, or K')
     @auth.login_required
     @api.marshal_with(weather_model)
     def get(self):
@@ -60,7 +60,6 @@ class Weather(Resource):
 
     def get_forecast(self, zipcode, requested_units):
         u"""Get the current temperature in specified units and description(eg:'clear')"""
-        api_key = os.getenv('SKIES_API_KEY')
         # zip code param may be passed as an invalid format
         try:
             lat_long = zipcodes.matching(zipcode)
@@ -74,6 +73,8 @@ class Weather(Resource):
         except IndexError as e:
             raise BadRequest(e)
 
+        # once lat, long, and units are validated, make the call to the upstream API for weather
+        api_key = os.getenv('SKIES_API_KEY')
         darksky = DarkSky(api_key)
 
         dark_forecast = darksky.get_forecast(

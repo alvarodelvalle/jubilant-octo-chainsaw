@@ -10,7 +10,6 @@ users = {
 
 @auth.verify_password
 def verify_password(username, password):
-    print("users:{}".format(users.get(username)))
     if username in users:
         return check_password_hash(users.get(username), password)
     return False

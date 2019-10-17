@@ -1,5 +1,6 @@
 # local variables file
-env.json
+.env
+
 #python
 *pycache*
 .pytest_cache

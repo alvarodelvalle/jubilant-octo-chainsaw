@@ -4,6 +4,7 @@ from environment.instance import environment_config
 
 
 class Server(object):
+    """Create the web server and RESTful API"""
     def __init__(self):
         self.app = Flask(__name__)
         self.api = Api(self.app,
