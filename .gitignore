@@ -2,3 +2,4 @@
 env.json
 #python
 *pycache*
+.pytest_cache

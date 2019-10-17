@@ -6,19 +6,18 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 pylint = "*"
-flask-testing = "*"
 
 [packages]
 flask = "*"
 requests = "*"
 flask-restful = "*"
 flask-script = "*"
-flask-migrate = "*"
-manage = "*"
 flask-restplus = "*"
 zipcodes = "*"
 flask-httpauth = "*"
 darksky-weather = "*"
+pytest-flask = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"

@@ -19,8 +19,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - SKIES_API_KEY=$SKIES_API_KEY
-      - FLASK_ENV=$FLASK_ENV
-    networks: 
+      - PYTHON_ENV=proxied
+    networks:
       challenge-network:
         aliases:
           - devops-challenge
