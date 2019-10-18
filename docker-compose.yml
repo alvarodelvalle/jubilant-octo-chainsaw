@@ -14,12 +14,11 @@ services:
       - 80:80
   devops-tech-challenge:
     image: devops-tech-challenge
+    env_file:
+      - ./.env
     build: 
       context: .
       dockerfile: Dockerfile
-    environment:
-      - SKIES_API_KEY=$SKIES_API_KEY
-      - PYTHON_ENV=proxied
     networks:
       challenge-network:
         aliases:

@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 auth = HTTPBasicAuth()
 
 users = {
-    "alvaro@bestateless.com": generate_password_hash("this is not my password")
+    "alvaro@bestateless.com": generate_password_hash("valid password")
 }
 
 

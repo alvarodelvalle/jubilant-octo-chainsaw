@@ -16,29 +16,32 @@ app, api = server.app, server.api
 
 # api = Namespace('datetime', description='v1 api calls')
 
-def temp_convert(current_temp, units):
+def convert_temp(orig_temp, units):
     """Static function to convert the temperature from F to K or C"""
     switcher = {
-        'k': ((current_temp - 32) * 5.0 / 9.0) + 273.15,
-        'c': (current_temp - 32) * 5.0 / 9.0,
-        'f': current_temp
+        'k': ((orig_temp - 32) * 5.0 / 9.0) + 273.15,
+        'c': (orig_temp - 32) * 5.0 / 9.0,
+        'f': orig_temp
     }
     temperature = switcher.get(units.lower())
-    return temperature
+    # conversion = {orig_temp, units, temperature}
+    conversion = dict(original=orig_temp, units=units, temperature=temperature)
+    return conversion
 
 
 @api.route('/api/v1/weather')
-@api.doc(params={'zip': 'format: xxxxx,us', 'units': 'one of the following: (F)arenheit (C)elcius (K)elvin'})
+@api.doc(params={'zip': 'format: xxxxx,us', 'units': u'one of the following: `F`arenheit `C`elcius `K`elvin'})
 class Weather(Resource):
     """Get the weather in given units for the provided zip code"""
 
     @auth.login_required
     @api.marshal_with(weather_model)
     def get(self):
-        zip_code, country_code = request.args['zip'].split(',')
+        zip_code = request.args['zip']
+        zip_code = zip_code.split(',')
         if zip_code.__len__() > 1:
             try:
-                country_code = country_code.lower()
+                country_code = zip_code[1].lower()
                 if country_code != 'us':
                     raise Exception
             except:
@@ -47,7 +50,7 @@ class Weather(Resource):
         requested_units = request.args['units']
 
         try:
-            data = self.get_forecast(zip_code, requested_units)
+            data = self.get_forecast(zip_code[0], requested_units)
         except BadRequest as e:
             raise e
         except NotFound as e:
@@ -81,6 +84,11 @@ class Weather(Resource):
             latitude, longitude,
             exclude=[weather.MINUTELY, weather.ALERTS]
         )
-        converted_temp = temp_convert(dark_forecast.currently.temperature, requested_units)
-        forecast = {'Temperature': converted_temp, 'Description': dark_forecast.currently.summary}
+        converted_temp = convert_temp(dark_forecast.currently.temperature, requested_units)
+        forecast = {
+            'Temperature': converted_temp['temperature'],
+            'Description': dark_forecast.currently.summary,
+            'OriginalTemp': converted_temp['original'],
+            'ConvertedToUnits': converted_temp['units']
+        }
         return forecast
