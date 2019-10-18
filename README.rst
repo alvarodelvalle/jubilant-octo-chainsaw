@@ -1,15 +1,12 @@
-Stateless DevOps Technical Assessment
+RESTful API
 =====================================
 
-Context and Description
------------------------
+Description
+-----------
 
-Your task is to create an API, written in Python 3 that returns a
-variety of data when GET calls are made to the endpoints specified below.
-Your API should be containerized for ease of use and well documented.
-You may use frameworks so long as the decision to do so is clearly documented.
-Be sure to also include tests to validate calls to your endpoints return
-correctly. The final API code should be packaged in a Docker container.
+A flask-restful API, written in Python 3 that returns a
+variety of data when GET calls are made to the endpoints.
+The API is containerized for ease of use.
 
 API Endpoints
 -------------
@@ -27,32 +24,8 @@ API Endpoints
     - /api/v1/weather
     - returns the current weather for a given zip code (details below)
 
-Submitting Your Results
------------------------
-Stateless will provide you with a private repo to submit your
-work to. Fork the repo to your account, then push your work to the master
-branch on the fork you created (in your account), then create a merge
-request with notes back to the Stateless repo for final submission.
-Commit often. We want to see your progress with notes rather than one
-big push.
-
-Expectations and Evaluation Criteria
-------------------------------------
-Your project will be evaluated on the following criteria:
-
-* Correctness: Measures if the assignment produces the correct output
-* Testing: Evaluates how thoroughly the candidate tested their submission. An
-  ideal submission will have a thorough unit test suite and include/document
-  tests done with larger corpus files
-* Readability: Using meaningful variable names, easy to follow logic and
-  control flow, adequate commenting, and amount of code reuse
-
-Requirements for Correctness
-----------------------------
-Ensure your assignment meets the following requirements:
-
-* Add basic authentication to your API (you may hard-code credentials)
-* The weather check should accept a minimal request with the following query
+* Basic authentication
+* The weather check accepts a minimal request with the following query
   arguments: :code:`GET /api/v1/weather?zip={zipcode,countrycode}&units={units}`
 
   .. list-table::
@@ -67,7 +40,7 @@ Ensure your assignment meets the following requirements:
       - Unit of measure for temperature. Will be one of :code:`celsius`, :code:`farenheit`, or :code:`kelvin`. OR, you
         may abbreviate units as :code:`c`, :code:`f`, or :code:`k` (upper or lower should be able to be submitted).
 
-  The returned JSON blob must include the following fields, though additional fields may be returned:
+  The returned JSON blob includes the following fields, though additional fields may be returned:
 
   .. list-table::
     :header-rows: 1
@@ -83,24 +56,8 @@ Ensure your assignment meets the following requirements:
       - String
       - A human-readable summary of the current weather such as :code:`sunny`, :code:`cloudy`, or :code:`rainy`.
 
-* Write your code in Python 3 and document it well
-* Containerize your code with Docker -- we should be able to clone your repo
-  and run 'docker-compose up' to bring the API up to test it
-* Make the API  handle errors gracefully and return error codes and messages
-  that are easy to interpret
-* Create a good set of tests with a testing framework that checks API endpoints
-  for expected results in normal and error conditions.
-* Your API for weather should call an upstream API provider to return the
-  current weather info for the location requested (your choice of upstream API)
-* The API key for the upstream API for weather should be provided to the API
-  server you write in a configuration file that is copied into the container
-* Return all data as JSON
-* Add API documentation in OpenAPI / Swagger / ReDoc spec.
-* Add a reverse web proxy on the front end (in another container). All API
-  calls should transit this proxy, not hit the API container itself.
-
-Results
-=======
+Getting Started
+===============
 I wrote the RESTful API using the flask framework and it's popular plugin flask-restplus
 for inherent Swagger documentation. To get started, you will need to create an
 :code:`.env` file in :code:`root` to store the following environment variables:
@@ -115,7 +72,7 @@ for inherent Swagger documentation. To get started, you will need to create an
     * - FLASK_ENV=production
     * - FLASK_DEBUG=false
 
-Next run :code:`docker-compose up` to create both project containers.
+Next, run :code:`docker-compose up` to create both project containers.
 
 Afterwards, you may invoke the endpoints using a Rest client like Postman.
 For convenience here are the curl commands
@@ -155,5 +112,3 @@ Lastly, running the API tests can be done by commands :code:`pipenv install --de
 followed by :code:`pipenv run pytest`.
 
 As always if you have any questions please feel free to contact me!
-
-Thank you very much for this opportunity :D
