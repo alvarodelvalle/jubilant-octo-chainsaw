@@ -66,7 +66,7 @@ for inherent Swagger documentation. To get started, you will need to create an
     :header-rows: 0
     :widths: 150
 
-    * - SKIES_API_KEY=34a12b1326745f8070f12148ea6e8e98
+    * - SKIES_API_KEY=
     * - PYTHONPATH="src:tests"
     * - PYTHON_ENV=proxied
     * - FLASK_ENV=production

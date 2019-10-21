@@ -24,7 +24,6 @@ def convert_temp(orig_temp, units):
         'f': orig_temp
     }
     temperature = switcher.get(units.lower())
-    # conversion = {orig_temp, units, temperature}
     conversion = dict(original=orig_temp, units=units, temperature=temperature)
     return conversion
 

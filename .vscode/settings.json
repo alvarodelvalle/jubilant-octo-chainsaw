@@ -2,5 +2,11 @@
     "python.pythonPath": "/Users/alvaro/.local/share/virtualenvs/devops-tech-challenge-0wJC7-p1/bin/python",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.terminal.activateEnvironment": true
+    "python.terminal.activateEnvironment": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.nosetestsEnabled": false
 }

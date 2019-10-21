@@ -1,7 +1,7 @@
 import pytest
 from freezegun import freeze_time
 
-from src.resources.datetime import *
+from src.resources.datetime import DateTimeUtc
 from server.instance import server
 
 url = '/api/v1/datetime'
