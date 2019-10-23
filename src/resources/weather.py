@@ -8,13 +8,11 @@ from flask_restplus import Resource, marshal
 from werkzeug.exceptions import BadRequest, HTTPException, NotFound
 
 from models.weather import weather_model
-from resources.authorization_helper import auth
+from src.resources.authorization_helper import auth
 from server.instance import server
 
 app, api = server.app, server.api
 
-
-# api = Namespace('datetime', description='v1 api calls')
 
 def convert_temp(orig_temp, units):
     """Static function to convert the temperature from F to K or C"""

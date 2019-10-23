@@ -5,8 +5,6 @@ from src.resources.datetime import DateTimeUtc
 from server.instance import server
 
 url = '/api/v1/datetime'
-dt = DateTimeUtc
-
 
 @pytest.fixture
 def app():

@@ -7,8 +7,6 @@ from src.resources.weather import Weather
 from server.instance import server
 
 url = '/api/v1/weather'
-w = Weather
-
 
 @pytest.fixture
 def app():
