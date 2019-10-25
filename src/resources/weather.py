@@ -43,8 +43,10 @@ class Weather(Resource):
                     raise Exception
             except:
                 raise BadRequest
-
+              
         requested_units = request.args['units']
+        if len(requested_units) is not 1:
+            raise BadRequest("Please submit 'F', 'K', 'C'")
 
         try:
             data = self.get_forecast(zip_code[0], requested_units)
