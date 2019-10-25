@@ -1,5 +1,5 @@
-from resources.weather import Weather
-from resources.datetime import DateTimeUtc
+import resources.weather
+import resources.datetime
 from server.instance import server
 
 if __name__ == '__main__':

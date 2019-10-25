@@ -5,11 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Python: Main",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/src/main.py",
+            "program": "/Users/alvaro/dev/github/devops-tech-challenge/src/main.py",
+            "args" : [],
+            "envFile": "${workspaceFolder}/.env",
+            "env": {"PYTHONPATH": "${workspaceFolder}"},
             "console": "integratedTerminal"
-        }
+        },
+        {
+            "name": "Python: template",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/startup.py",
+            "args" : ["--port", "1593"]
+        },
     ]
 }
