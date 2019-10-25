@@ -8,7 +8,7 @@ from flask_restplus import Resource, marshal
 from werkzeug.exceptions import BadRequest, HTTPException, NotFound
 
 from models.weather import weather_model
-from src.resources.authorization_helper import auth
+from resources.authorization_helper import auth
 from server.instance import server
 
 app, api = server.app, server.api

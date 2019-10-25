@@ -3,7 +3,7 @@ from typing import Any, Union
 import pytest
 from flask import url_for
 
-from src.resources.weather import Weather
+from resources.weather import Weather
 from server.instance import server
 
 url = '/api/v1/weather'
